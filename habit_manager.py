@@ -1,6 +1,5 @@
 import json
 from habit import Habit
-from datetime import datetime
 
 
 class HabitManager:
@@ -9,6 +8,9 @@ class HabitManager:
         self.habits = self.load_from_file()
 
     def load_from_file(self):
+        """
+        Loads the habits from the file
+        """
         try:
             with open(self.db_file, 'r') as f:
                 data = json.load(f)
@@ -25,6 +27,9 @@ class HabitManager:
             return []
 
     def save_to_file(self):
+        """
+        Saves the habits to the file
+        """
         habits_data = [
             {
                 'name': habit.name,
@@ -38,26 +43,20 @@ class HabitManager:
             json.dump({'habits': habits_data}, f, indent=4)
 
     def create_habit(self, name: str, frequency: str):
+        """
+        Creates a new habit
+        """
         new_habit = Habit(
-            name, frequency, datetime.now().strftime('%Y-%m-%d'), [])
+            name, frequency, "", [])
         self.habits.append(new_habit)
         self.save_to_file()
 
     def delete_habit(self, name: str):
+        """
+        Deletes a habit
+        """
         for habit in self.habits:
             if habit.name == name:
                 self.habits.remove(habit)
                 self.save_to_file()
                 break
-
-    def list_habits(self):
-        return [habit.name for habit in self.habits]
-
-
-manager = HabitManager()
-print(manager.list_habits())
-
-
-manager.delete_habit('Run')
-
-print(manager.list_habits())

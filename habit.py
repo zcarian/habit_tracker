@@ -45,7 +45,6 @@ class Habit:
 
             interval = frequency_map.get(self.frequency)
 
-            print(interval)
             for i in range(1, len(sortedDates)):
                 # Check if the difference between the current date and the previous date is less than or equal to the interval
                 if sortedDates[i] - sortedDates[i - 1] <= interval:
@@ -55,20 +54,3 @@ class Habit:
                     streak = 1
 
             return maxStreak
-
-
-# date = datetime.now().strftime('%Y-%m-%d')
-# print(date)
-# print(type(date))
-newHabit1 = Habit('Run', 'daily', "2024-12-10", [
-    "2024-12-10", "2024-12-11", "2024-12-12", "2024-12-13", "2024-12-15"
-])
-
-newHabit2 = Habit('Read', 'weekly', "2024-12-10", [
-    "2024-12-10", "2024-12-17", "2024-12-30", "2024-12-31", "2025-01-05",
-])
-
-newHabit3 = Habit('Code', 'monthly', "2024-12-10", [
-    "2024-07-10", "2024-08-05", "2024-09-03", "2024-10-01", "2025-01-05",
-])
-# print(newHabit3.getStreak())
