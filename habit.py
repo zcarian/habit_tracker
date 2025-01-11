@@ -21,14 +21,18 @@ class Habit:
         currentDate = datetime.now().strftime(
             '%Y-%m-%d')  # Changing the format from timedate object to string
         if currentDate not in self.completionDates:
+            # Adding the current date to the list
             self.completionDates.append(currentDate)
 
     def getStreak(self):
+        """
+        Returns the longest streak of the habit
+        """
         if not self.completionDates:
             return 0
         else:
             sortedDates = sorted(datetime.strptime(date, '%Y-%m-%d')
-                                 for date in self.completionDates)
+                                 for date in self.completionDates)  # Converting the list of strings to a list of datetime objects and sorting
 
             streak = 1  # If completionDates is not empty then there is a minimum of 1 streak
             maxStreak = 1
@@ -43,6 +47,7 @@ class Habit:
 
             print(interval)
             for i in range(1, len(sortedDates)):
+                # Check if the difference between the current date and the previous date is less than or equal to the interval
                 if sortedDates[i] - sortedDates[i - 1] <= interval:
                     streak += 1
                     maxStreak = max(maxStreak, streak)
@@ -62,4 +67,8 @@ newHabit1 = Habit('Run', 'daily', "2024-12-10", [
 newHabit2 = Habit('Read', 'weekly', "2024-12-10", [
     "2024-12-10", "2024-12-17", "2024-12-30", "2024-12-31", "2025-01-05",
 ])
-print(newHabit2.getStreak())
+
+newHabit3 = Habit('Code', 'monthly', "2024-12-10", [
+    "2024-07-10", "2024-08-05", "2024-09-03", "2024-10-01", "2025-01-05",
+])
+# print(newHabit3.getStreak())
