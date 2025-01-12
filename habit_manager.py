@@ -7,6 +7,16 @@ class HabitManager:
         self.db_file = db_file
         self.habits = self.load_from_file()
 
+    def check_off_habit(self, name: str):
+        """
+        Checks off a habit and saves the changes
+        """
+        for habit in self.habits:
+            if habit.name == name:
+                habit.checkOff()
+                self.save_to_file()
+                break
+
     def load_from_file(self):
         """
         Loads the habits from the file
