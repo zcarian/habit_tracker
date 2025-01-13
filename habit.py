@@ -11,10 +11,10 @@ class Habit:
         """
         self.name = name
         self.frequency = frequency
-        self.creationDate = datetime.now().strftime('%Y-%m-%d')
+        self.creationDate = creationDate or datetime.now().strftime('%Y-%m-%d')
         self.completionDates = completionDates
 
-    def checkOff(self):
+    def check_off(self):
         """
         Adds the current date to the list of completion dates
         """
@@ -24,7 +24,7 @@ class Habit:
             # Adding the current date to the list
             self.completionDates.append(currentDate)
 
-    def getStreak(self):
+    def get_streak(self):
         """
         Returns the longest streak of the habit
         """

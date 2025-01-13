@@ -7,13 +7,21 @@ class HabitManager:
         self.db_file = db_file
         self.habits = self.load_from_file()
 
+    def get_habit(self, name: str):
+        """
+        Returns the habit with the given name
+        """
+        for habit in self.habits:
+            if habit.name == name:
+                return habit
+
     def check_off_habit(self, name: str):
         """
         Checks off a habit and saves the changes
         """
         for habit in self.habits:
             if habit.name == name:
-                habit.checkOff()
+                habit.check_off()
                 self.save_to_file()
                 break
 

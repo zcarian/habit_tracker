@@ -37,6 +37,6 @@ def test_habit_streaks(habits):
 
 
 # Main script
-# if __name__ == "__main__":
-#     habits = load_habits_from_json('db.json')  # Load data from JSON file
-#     test_habit_streaks(habits)  # Test streak function
+if __name__ == "__main__":
+    habits = load_habits_from_json('habits.json')  # Load data from JSON file
+    test_habit_streaks(habits)  # Test streak function
