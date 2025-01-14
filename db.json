@@ -109,8 +109,21 @@
                 "2024-09-30",
                 "2024-10-28",
                 "2024-11-29",
-                "2024-12-30"
+                "2024-12-30",
+                "2025-01-14"
             ]
+        },
+        {
+            "name": "Hallo",
+            "frequency": "weekly",
+            "creationDate": "2025-01-14",
+            "completionDates": []
+        },
+        {
+            "name": "ok",
+            "frequency": "daily",
+            "creationDate": "2025-01-14",
+            "completionDates": []
         }
     ]
 }

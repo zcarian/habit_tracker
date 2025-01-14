@@ -40,7 +40,7 @@ class Habit:
             frequency_map = {
                 'daily': timedelta(days=1),
                 'weekly': timedelta(weeks=1),
-                'monthly': timedelta(days=30)  # Approximation for a month
+                'monthly': timedelta(days=31)  # Approximation for a month
             }
 
             interval = frequency_map.get(self.frequency)

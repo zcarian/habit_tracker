@@ -97,7 +97,8 @@ def test_analytics_longest_streak(testManager):
                              completionDates=["2025-01-01", "2025-01-02", "2025-01-03"])
     testManager.create_habit(name="Brush teeth", frequency="daily", creationDate="2025-01-01",
                              completionDates=["2025-01-01", "2025-01-02", "2025-01-03", "2025-01-04"])
-    assert get_longest_streak(testManager.habits) == (4, "Brush teeth")
+    assert get_longest_streak(testManager.habits) == (
+        4, "Brush teeth", "daily")
 
 
 def test_analytics_longest_streak_by_frequency(testManager):

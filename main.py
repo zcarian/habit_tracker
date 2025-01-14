@@ -126,21 +126,27 @@ def cli():
                     longestStreak, bestHabit = get_longest_streak_by_frequency(
                         manager.habits, "weekly")
                     print(
-                        f"✅ The longest streak of weekly habits is {longestStreak} days for habit '{bestHabit}'!"
+                        f"✅ The longest streak of weekly habits is {longestStreak} weeks for habit '{bestHabit}'!"
                     )
 
                 elif streakChoice == "Monthly habits":
                     longestStreak, bestHabit = get_longest_streak_by_frequency(
                         manager.habits, "monthly")
                     print(
-                        f"✅ The longest streak of monthly habits is {longestStreak} days for habit '{bestHabit}'!"
+                        f"✅ The longest streak of monthly habits is {longestStreak} months for habit '{bestHabit}'!"
                     )
 
                 elif streakChoice == "All habits":
-                    longestStreak, bestHabit = get_longest_streak(
+                    longestStreak, bestHabit, frequencyOfBestHabit = get_longest_streak(
                         manager.habits)
+                    if frequencyOfBestHabit == "daily":
+                        unit = "days"
+                    elif frequencyOfBestHabit == "weekly":
+                        unit = "weeks"
+                    elif frequencyOfBestHabit == "monthly":
+                        unit = "months"
                     print(
-                        f"✅ The longest streak of all habits is {longestStreak} days for habit '{bestHabit}'!"
+                        f"✅ The longest streak of all habits is {longestStreak} {unit} for habit '{bestHabit}'!"
                     )
 
         elif choice == "Exit":
@@ -150,5 +156,3 @@ def cli():
 
 if __name__ == "__main__":
     cli()
-    # manager = HabitManager()
-    # print(get_completion_rate_of_habit(manager.habits, "Exercise"))
