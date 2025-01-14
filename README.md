@@ -24,7 +24,7 @@ The application employs object-oriented and functional programming principles an
 3. **Analytics**:
 
    - View all habits or filter habits by frequency.
-   - Analyze the longest streaks for all habits or specific ones.
+   - Analyze the longest streaks for all habits or by frequency.
    - Calculate the completion rate for each habit.
 
 4. **Persistence**:
@@ -46,8 +46,8 @@ The application employs object-oriented and functional programming principles an
 1. Clone the repository:
 
    ```bash
-   git clone <repository-url>
-   cd <repository-name>
+   git clone https://github.com/zcarian/habit_tracker
+   cd habit_tracker
    ```
 
 2. Install dependencies:
@@ -71,7 +71,7 @@ When you run the application, you'll be greeted with a menu allowing you to:
 - **Delete a habit**: Remove an existing habit.
 - **Check off a habit**: Mark a habit as completed.
 - **View habits**: List habits by frequency or view all habits.
-- **Analyze habits**: Get detailed analytics about your habits.
+- **Analyze habits**: Get detailed analytics about your habits, such as the longest streaks and completion rates.
 - **Exit**: Quit the application.
 
 ## Testing

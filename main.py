@@ -17,8 +17,8 @@ def cli():
 
         choice = questionary.select(
             "What do you want to do?",
-            choices=["Add new habit", "Delete old habit",
-                     "Check habit off", "See habits", "Analyse", "Exit"]
+            choices=["Add a new habit", "Delete old habit",
+                     "Check off a habit", "View habits", "Analyse", "Exit"]
         ).ask()
 
         if choice == "Add new habit":
