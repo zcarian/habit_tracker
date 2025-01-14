@@ -1,6 +1,12 @@
 import questionary
 from habit_manager import HabitManager
-from analyse import get_list_of_habits, get_list_of_habits_by_frequency, get_longest_streak, get_longest_streak_by_frequency, get_completion_rate_of_habit
+from analyse import (
+    get_list_of_habits,
+    get_list_of_habits_by_frequency,
+    get_longest_streak,
+    get_longest_streak_by_frequency,
+    get_completion_rate_of_habit
+)
 
 
 def cli():
@@ -51,29 +57,37 @@ def cli():
             if seeHabitsChoice == "Daily habits":
                 habits = get_list_of_habits_by_frequency(
                     manager.habits, "daily")
-                print(habits)
+                if habits:
+                    for habit in habits:
+                        print(habit)
 
             elif seeHabitsChoice == "Weekly habits":
                 habits = get_list_of_habits_by_frequency(
                     manager.habits, "weekly")
-                print(habits)
+                if habits:
+                    for habit in habits:
+                        print(habit)
 
             elif seeHabitsChoice == "Monthly habits":
                 habits = get_list_of_habits_by_frequency(
                     manager.habits, "monthly")
-                print(habits)
+                if habits:
+                    for habit in habits:
+                        print(habit)
 
             elif seeHabitsChoice == "All habits":
                 habits = get_list_of_habits(manager.habits)
-                print(habits)
+                if habits:
+                    for habit in habits:
+                        print(habit)
 
         elif choice == "Analyse":
             analyseChoice = questionary.select(
                 "What do you want to do?", choices=["Analyse paricular habit", "Get longest streak"]).ask()
-
-            if analyseChoice == "Analyse paricular habit":
+            habits = get_list_of_habits(manager.habits)
+            if analyseChoice == "Analyse paricular habit" and habits:
                 name = questionary.select(
-                    "What's the name of the habit?", choices=get_list_of_habits(manager.habits)).ask()
+                    "What's the name of the habit?", choices=habits).ask()
                 option = questionary.select(
                     "Chose action", choices=["Get longset streak", "Get completion rate"]).ask()
 
@@ -90,42 +104,43 @@ def cli():
                         f"✅ Habit '{name}' has a longest streak of {streak} {unit}!")
 
                 elif option == "Get completion rate":
-                    completion_rate = get_completion_rate_of_habit(
+                    completionRate = get_completion_rate_of_habit(
                         manager.habits, name)
-                    print(
-                        f"✅ Habit '{name}' has a completion rate of {completion_rate}%"
-                    )
+                    if completionRate:
+                        print(
+                            f"✅ Habit '{name}' has a completion rate of {completionRate}%"
+                        )
 
             elif analyseChoice == "Get longest streak":
                 streakChoice = questionary.select(
                     "Chose action", choices=["Daily habits", "Weekly habits", "Monthly habits", "All habits"]).ask()
 
                 if streakChoice == "Daily habits":
-                    longest_streak, best_habit = get_longest_streak_by_frequency(
+                    longestStreak, bestHabit = get_longest_streak_by_frequency(
                         manager.habits, "daily")
                     print(
-                        f"✅ The longest streak of daily habits is {longest_streak} days for habit '{best_habit}'!"
+                        f"✅ The longest streak of daily habits is {longestStreak} days for habit '{bestHabit}'!"
                     )
 
                 elif streakChoice == "Weekly habits":
-                    longest_streak, best_habit = get_longest_streak_by_frequency(
+                    longestStreak, bestHabit = get_longest_streak_by_frequency(
                         manager.habits, "weekly")
                     print(
-                        f"✅ The longest streak of weekly habits is {longest_streak} days for habit '{best_habit}'!"
+                        f"✅ The longest streak of weekly habits is {longestStreak} days for habit '{bestHabit}'!"
                     )
 
                 elif streakChoice == "Monthly habits":
-                    longest_streak, best_habit = get_longest_streak_by_frequency(
+                    longestStreak, bestHabit = get_longest_streak_by_frequency(
                         manager.habits, "monthly")
                     print(
-                        f"✅ The longest streak of monthly habits is {longest_streak} days for habit '{best_habit}'!"
+                        f"✅ The longest streak of monthly habits is {longestStreak} days for habit '{bestHabit}'!"
                     )
 
                 elif streakChoice == "All habits":
-                    longest_streak, best_habit = get_longest_streak(
+                    longestStreak, bestHabit = get_longest_streak(
                         manager.habits)
                     print(
-                        f"✅ The longest streak of all habits is {longest_streak} days for habit '{best_habit}'!"
+                        f"✅ The longest streak of all habits is {longestStreak} days for habit '{bestHabit}'!"
                     )
 
         elif choice == "Exit":

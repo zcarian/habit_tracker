@@ -3,8 +3,8 @@ from habit import Habit
 
 
 class HabitManager:
-    def __init__(self, db_file='db.json'):
-        self.db_file = db_file
+    def __init__(self, dbFile='db.json'):
+        self.dbFile = dbFile
         self.habits = self.load_from_file()
 
     def get_habit(self, name: str):
@@ -30,7 +30,7 @@ class HabitManager:
         Loads the habits from the file
         """
         try:
-            with open(self.db_file, 'r') as f:
+            with open(self.dbFile, 'r') as f:
                 data = json.load(f)
                 return [
                     Habit(
@@ -57,15 +57,15 @@ class HabitManager:
             }
             for habit in self.habits
         ]
-        with open(self.db_file, 'w') as f:
+        with open(self.dbFile, 'w') as f:
             json.dump({'habits': habits_data}, f, indent=4)
 
-    def create_habit(self, name: str, frequency: str):
+    def create_habit(self, name: str, frequency: str, creationDate: str = "", completionDates: list = []):
         """
         Creates a new habit
         """
         new_habit = Habit(
-            name, frequency, "", [])
+            name, frequency, creationDate, completionDates)
         self.habits.append(new_habit)
         self.save_to_file()
 
