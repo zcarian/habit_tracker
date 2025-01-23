@@ -93,7 +93,7 @@ def get_list_of_habits_by_frequency(habits, frequency):
 def get_completion_rate_of_habit(habits, habitName):
     """
     Get the completion rate of a specific habit based on whether it was completed
-    at least once in each expected time period (week or month).
+    at least once in each expected time period (day, week or month).
     :param habits: A list of Habit objects
     :param habitName: The name of the habit to evaluate
     :return: Float representing the completion rate

@@ -12,7 +12,7 @@ class Habit:
         self.name = name
         self.frequency = frequency
         self.creationDate = creationDate or datetime.now().strftime('%Y-%m-%d')
-        self.completionDates = completionDates
+        self.completionDates = completionDates or []
 
     def check_off(self):
         """

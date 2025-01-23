@@ -21,7 +21,7 @@ def cli():
                      "Check off a habit", "View habits", "Analyse", "Exit"]
         ).ask()
 
-        if choice == "Add new habit":
+        if choice == "Add a new habit":
             while True:
                 name = questionary.text("What's the name of the habit?").ask()
                 if name and name.strip():  # Check that name is not empty or just whitespace
@@ -41,16 +41,18 @@ def cli():
         elif choice == "Delete old habit":
             name = questionary.select(
                 "What's the name of the habit?", choices=get_list_of_habits(manager.habits)).ask()
-            manager.delete_habit(name)
-            print(f"✅ Habit '{name}' has been successfully deleted!")
+            answer = questionary.confirm("Are you sure?").ask()
+            if answer:
+                manager.delete_habit(name)
+                print(f"✅ Habit '{name}' has been successfully deleted!")
 
-        elif choice == "Check habit off":
+        elif choice == "Check off a habit":
             name = questionary.select(
                 "What's the name of the habit?", choices=get_list_of_habits(manager.habits)).ask()
             manager.check_off_habit(name)
             print(f"✅ Habit '{name}' has been successfully checked off!")
 
-        elif choice == "See habits":
+        elif choice == "View habits":
             seeHabitsChoice = questionary.select(
                 "Which habits do you want to see?", choices=["Daily habits", "Weekly habits", "Monthly habits", "All habits"]).ask()
 

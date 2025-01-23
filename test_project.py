@@ -27,7 +27,7 @@ def testManager():
 
 # Test the Habit class
 def test_habit_creation():
-
+    # Testing creation of a habit
     habit = Habit(name="Exercise", frequency="daily",
                   creationDate="2025-01-01", completionDates=[])
     assert habit.name == "Exercise"
@@ -37,6 +37,7 @@ def test_habit_creation():
 
 
 def test_habit_check_off():
+    # Testing check_off method
     habit = Habit(name="Exercise", frequency="daily",
                   creationDate="2025-01-01", completionDates=[])
     habit.check_off()
@@ -45,17 +46,15 @@ def test_habit_check_off():
 
 
 def test_habit_streak():
-    habit = Habit(
-        name="Exercise",
-        frequency="daily",
-        creationDate="2025-01-01",
-        completionDates=["2025-01-01", "2025-01-02"],
-    )
-    assert habit.get_streak() == 2
+    # Testing get_streak method
+    manager = HabitManager("db.json")
+    habit = manager.get_habit("Exercise")
+    assert habit.get_streak() == 20
 
 
 # Test the HabitManager class
 def test_habitManager_create_delete(testManager):
+    # Testing create_habit and delete_habit methods
     testManager.create_habit(name="Read", frequency="daily")
     assert any(habit.name == "Read" for habit in testManager.habits)
 
@@ -64,6 +63,7 @@ def test_habitManager_create_delete(testManager):
 
 
 def test_habitManager_persistence(testManager):
+    # Testing persistence
     testManager.create_habit(name="Sleep Early", frequency="daily")
     testManager.save_to_file()
 
@@ -74,7 +74,7 @@ def test_habitManager_persistence(testManager):
 
 # Test analytics functions
 def test_analytics_list_of_habits(testManager):
-    testManager.habits = []
+    # Testing get_list_of_habits function
     testManager.create_habit(name="Go for a walk", frequency="daily")
     testManager.create_habit(name="Read", frequency="weekly")
     assert get_list_of_habits(testManager.habits) == [
@@ -82,7 +82,7 @@ def test_analytics_list_of_habits(testManager):
 
 
 def test_analytics_list_of_habits_by_frequency(testManager):
-    testManager.habits = []
+    # Testing get_list_of_habits_by_frequency function
     testManager.create_habit(name="Go for a walk", frequency="daily")
     testManager.create_habit(name="Read", frequency="weekly")
     assert get_list_of_habits_by_frequency(testManager.habits, "daily") == [
@@ -91,33 +91,27 @@ def test_analytics_list_of_habits_by_frequency(testManager):
         "Read"]
 
 
-def test_analytics_longest_streak(testManager):
-    testManager.habits = []
-    testManager.create_habit(name="Exercise", frequency="daily", creationDate="2025-01-01",
-                             completionDates=["2025-01-01", "2025-01-02", "2025-01-03"])
-    testManager.create_habit(name="Brush teeth", frequency="daily", creationDate="2025-01-01",
-                             completionDates=["2025-01-01", "2025-01-02", "2025-01-03", "2025-01-04"])
-    assert get_longest_streak(testManager.habits) == (
-        4, "Brush teeth", "daily")
+def test_analytics_longest_streak():
+    # Testing get_longest_streak function
+    manager = HabitManager("db.json")
+    assert get_longest_streak(manager.habits) == (20, "Exercise", "daily")
 
 
-def test_analytics_longest_streak_by_frequency(testManager):
-    testManager.habits = []
-    testManager.create_habit(name="Exercise", frequency="daily", creationDate="2025-01-01",
-                             completionDates=["2025-01-01", "2025-01-02", "2025-01-03"])
-    testManager.create_habit(name="Brush teeth", frequency="daily", creationDate="2025-01-01",
-                             completionDates=["2025-01-01", "2025-01-02", "2025-01-03", "2025-01-04"])
-    testManager.create_habit(name="Riding a bike", frequency="weekly", creationDate="2024-12-10",
-                             completionDates=["2024-12-10", "2024-12-17", "2024-12-24", "2024-12-31", "2025-01-07"])
+def test_analytics_longest_streak_by_frequency():
+    # Testing get_longest_streak_by_frequency function
+    manager = HabitManager("db.json")
     assert get_longest_streak_by_frequency(
-        testManager.habits, "daily") == (4, "Brush teeth")
+        manager.habits, "daily") == (20, "Exercise")
     assert get_longest_streak_by_frequency(
-        testManager.habits, "weekly") == (5, "Riding a bike")
+        manager.habits, "weekly") == (5, "Go hiking")
+    assert get_longest_streak_by_frequency(
+        manager.habits, "monthly") == (7, "Budget review")
 
 
 def test_completion_rate(testManager):
+    # Testing get_completion_rate_of_habit function
     # Due to the fact that get_completion_rate_of_habit function measures from the acctual today date,
-    # the habit "Dance" can't have static data and has to be measured from today
+    # the habit "Dance" cannot have static data and has to be measured from today
     testManager.habits = []
     twoDaysAgo = (datetime.now() - timedelta(days=2)
                   ).strftime("%Y-%m-%d")  # Date from 2 days ago
